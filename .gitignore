@@ -1,0 +1,28 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Private operational exports
+private/
+confidential/
+secrets/
+exports/
+*.csv
+*.xlsx
+*.xls
+*.zip
+*.docx
+*.pptx
+*.pdf
+
+# Local tooling
+.DS_Store
+Thumbs.db
+node_modules/
+.venv/
+__pycache__/
