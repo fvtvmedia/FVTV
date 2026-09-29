@@ -1,0 +1,28 @@
+{
+  "version": "2026-09-29",
+  "sender": {
+    "name": "Nia Brooks",
+    "organization": "FVTV Media"
+  },
+  "follow_up_owner": "Claude",
+  "duplicate_window_hours": 24,
+  "max_outbound_per_recipient_per_run": 1,
+  "stream_key": "normalized_company_or_person + business_purpose",
+  "outcomes": [
+    "REPLY_NEW_INBOUND",
+    "SEND_TRANSACTIONAL",
+    "HANDOFF_TO_CLAUDE",
+    "BLOCK_DUPLICATE",
+    "OWNER_REVIEW",
+    "NO_ACTION"
+  ],
+  "owner_review_triggers": [
+    "binding_commitment",
+    "unapproved_pricing",
+    "spend",
+    "contract_or_legal",
+    "rights_or_exclusivity",
+    "refund_outside_policy",
+    "identity_or_authority_unclear"
+  ]
+}
