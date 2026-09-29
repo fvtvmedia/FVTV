@@ -1,0 +1,51 @@
+{
+  "version": "2026-09-28",
+  "repository_role": "public-safe technical monorepo and workflow control layer",
+  "source_of_truth": {
+    "unfinished_work": "Notion: Nia Work Queue",
+    "runtime_model": "Notion: Execution Graph Control Plane",
+    "posting_rules": "Notion: FVTV Posting Rules v3",
+    "video_rules": "Notion: FVTV Video Production Entry Point",
+    "accounting": "Notion: Accounting & Bookkeeping HQ",
+    "commercial_rates": "Notion: FVTV Services & Rates",
+    "interviews": "Notion: FVTV Remote Artist Interview Workflow",
+    "email_state": "Gmail",
+    "asset_state": "Google Drive",
+    "scheduler_state": "Metricool"
+  },
+  "runtime_states": ["NEW","READY","RUNNING","BLOCKED","WAITING","VERIFYING","REPAIR","DONE","CANCELLED"],
+  "authority_gates": ["AUTONOMOUS","OWNER_APPROVAL","EXTERNAL"],
+  "services": {
+    "social_scheduler": "Metricool",
+    "interview_booking": "Calendly",
+    "interview_slot_minutes": 60,
+    "remote_interview_platform": "StreamYard",
+    "video_editor": "Filmora",
+    "voice_provider": "ElevenLabs",
+    "colab_active": false
+  },
+  "email": {
+    "hourly_ops_scope": "new-inbound-and-transactional-only",
+    "follow_up_owner": "Claude",
+    "duplicate_window_hours": 24,
+    "max_outbound_per_recipient_per_run": 1,
+    "stream_key": "company+business-purpose"
+  },
+  "video": {
+    "automatic_chatgpt_longform_hold": true,
+    "automatic_elevenlabs_spend_hold": true,
+    "direct_owner_requested_work_separate_lane": true,
+    "first_hook_seconds": [3,5],
+    "full_playback_required_before_release_recommendation": true
+  },
+  "business": {
+    "umbrella": "FVTV Media",
+    "service_lines": ["Production","Creative","Studios","Media/Partnerships","Culture Intelligence"],
+    "legacy_provenance_only": ["Gold Vision Films","GVF","KR3ATIVE"]
+  },
+  "github": {
+    "business_task_queue": false,
+    "issue_scope": ["repository-change","workflow-bug","technical-debt"],
+    "allow_private_operational_records": false
+  }
+}

@@ -1,0 +1,33 @@
+name: Repository change
+description: Propose or track a technical change to the FVTV workflow repository.
+title: "[REPO] "
+labels:
+  - needs-triage
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+    validations:
+      required: true
+  - type: textarea
+    id: canonical_rule
+    attributes:
+      label: Canonical rule or evidence
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: This is repository/technical work, not a live business task.
+          required: true
+        - label: No private operational data will be committed.
+          required: true
