@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nia Email Decision",
+  "type": "object",
+  "required": [
+    "stream_key",
+    "decision",
+    "checked_gmail_history",
+    "checked_notion_record"
+  ],
+  "properties": {
+    "stream_key": {
+      "type": "string",
+      "minLength": 3
+    },
+    "decision": {
+      "enum": [
+        "REPLY_NEW_INBOUND",
+        "SEND_TRANSACTIONAL",
+        "HANDOFF_TO_CLAUDE",
+        "BLOCK_DUPLICATE",
+        "OWNER_REVIEW",
+        "NO_ACTION"
+      ]
+    },
+    "checked_gmail_history": {
+      "const": true
+    },
+    "checked_notion_record": {
+      "const": true
+    },
+    "latest_inbound_message_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reply_message_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "follow_up_owner": {
+      "enum": [
+        "Claude",
+        null
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
