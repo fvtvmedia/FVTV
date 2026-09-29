@@ -1,50 +1,59 @@
-# FVTV Operating System
+# FVTV Workflow OS
 
-This repository is the working control room for FVTV Media, FVTV Studios, FVTV Magazine, and related partner work. It is designed to make commitments visible, keep follow-ups from disappearing, and preserve the firewall between editorial judgment and paid promotion.
+This repository is the public-safe technical control layer for FVTV Media. It stores workflow contracts, schemas, validation code, technical runbooks, and implementation history.
 
-## Operating rules
+It is **not** the live business task queue.
 
-1. **Revenue first, but not at the cost of trust.** Prioritize time-to-cash, warm intent, fulfillment readiness, repeatability, and conversion leverage—not only the largest theoretical deal.
-2. **Editorial is not for sale.** Paid promotion, sponsored campaigns, rankings, reviews, interviews, and editorial consideration must remain clearly separated and labeled.
-3. **No payment, no work.** Service work begins only after payment clears and the written scope is confirmed. No free tests, undocumented barter, or invented payment links.
-4. **No binding commitments without owner approval.** Agreements, renewals, custom compensation, contracts, spending, and submissions that create legal or financial obligations require an explicit approval record.
-5. **Every outbound commitment gets a record.** Store the route, date, owner, exact offer, status, next follow-up, and source in the CRM or the appropriate issue.
-6. **Respect suppression and consent.** Honor opt-outs, bounced addresses, platform restrictions, and do-not-contact records.
-7. **Echo.me owns routine social engagement.** This repository tracks revenue-facing social actions, campaign deliverables, and approved publishing assets—not the routine comment backlog.
+## Source of truth
+
+Live operating state stays in the connected private systems:
+
+- **Notion — Nia Work Queue:** only canonical unfinished-work queue.
+- **Notion — Execution Graph Control Plane:** runtime states, dependencies, authority gates, verification, idempotency, and WIP rules.
+- **Notion — FVTV Posting Rules v3:** live editorial, publishing, scheduler, voice, media, and production rules.
+- **Notion — FVTV Video Production Entry Point:** live video-production handoff and release contract.
+- **Notion — Accounting & Bookkeeping HQ:** actual transactions, allocations, recurring costs, bills, receivables, and equipment.
+- **Notion — FVTV Services & Rates:** current commercial offers and pricing.
+- **Notion — FVTV Remote Artist Interview Workflow:** booking, payment, platform, preflight, recording, and post-production rules.
+- **Gmail:** actual email/thread state.
+- **Google Drive:** actual file/asset state.
+- **Metricool:** actual scheduling and publishing state.
+- **GitHub:** code, schemas, technical QA, and implementation artifacts only.
+
+When a cached rule here conflicts with live Notion, the live Notion rule wins.
+
+## Current business architecture
+
+FVTV Media is the single current business umbrella. Current service lines are FVTV Production, FVTV Creative, FVTV Studios, FVTV Media / Partnerships / Editorial, and Culture Intelligence. Gold Vision Films / GVF and KR3ATIVE are legacy provenance only. Keylo Nsane and SFTS remain separate public brands.
 
 ## Repository map
 
-| Area | Purpose |
+| Path | Purpose |
 |---|---|
-| `docs/operations/` | Workflow rules, handoff standards, and operating checklists |
-| `docs/partners/` | Partner, affiliate, agreement, and activation notes |
-| `docs/editorial/` | Magazine, feature, review, and source-control documents |
-| `ops/revenue/` | Revenue queue, offer matrix, payment controls, and follow-up logs |
-| `ops/partners/` | Deliverable trackers for affiliates, partners, reviews, and campaigns |
-| `ops/editorial/` | Issue 005 and other public-facing editorial work |
-| `ops/social/` | Revenue-facing campaign assets only; routine comments stay with Echo.me |
-| `.github/ISSUE_TEMPLATE/` | Standard forms for leads, deliverables, reviews, agreements, and editorial work |
-| `.github/workflows/` | Lightweight validation for repository hygiene and sensitive-file prevention |
+| `config/workflow-contract.json` | Machine-readable cross-system contract |
+| `schemas/` | Public-safe schemas for tasks, outreach, media, interviews, assets, and bookkeeping events |
+| `scripts/validate_workflow.py` | Structural and contract validation |
+| `docs/operations/` | Technical runbooks derived from live Notion rules |
+| `docs/editorial/` | Editorial implementation boundary and source-of-truth notes |
+| `docs/partners/` | Partner implementation boundary and privacy rules |
+| `ops/revenue/` | Revenue-system implementation notes, never live leads |
+| `ops/partners/` | Partner-system implementation notes, never private correspondence |
+| `ops/editorial/` | Editorial technical controls, never the live content queue |
+| `ops/social/` | Scheduler and publishing technical controls |
+| `ops/video/` | Video manifests, gates, and production implementation |
+| `ops/admin/` | Drive/accounting/admin technical controls |
+| `.github/ISSUE_TEMPLATE/` | Repository-change and workflow-bug intake only |
+| `.github/workflows/` | Repository and workflow-contract validation |
 
-## Work lifecycle
+## Runtime states
 
-Every item follows: **Intake → Qualified → Scoped → Approval needed → Ready → In progress → Review → Sent/Published → Awaiting response → Closed**. Use `Blocked` only after the documented alternatives have been tried and the precise dependency is recorded.
+Technical workflow code uses the canonical Notion execution states:
+`NEW, READY, RUNNING, BLOCKED, WAITING, VERIFYING, REPAIR, DONE, CANCELLED`.
+
+A generated artifact is not DONE until the definition of done is satisfied and completion evidence is verified. Writes must be idempotent: do not duplicate emails, posts, calendar events, files, tasks, or outreach.
 
 ## GitHub working method
 
-Use one issue per real commitment or deliverable. Use labels for work type and status, milestones for release or deadline groups, and linked pull requests for files that need review. Never store passwords, access tokens, private customer data, unsigned agreements, or confidential partner material in this public repository. Sensitive files stay in the approved private system and are referenced by a Notion or Drive link.
+GitHub issues are for **repository changes and workflow bugs**, not business leads, content assignments, partner follow-ups, interview scheduling, or revenue opportunities. Those belong in the Nia Work Queue and their canonical private systems.
 
-The default branch is protected by review and validation when GitHub plan permissions allow it. Small operational documentation changes may use a pull request; legal documents and public copy require a reviewer before merge. All public-facing files must include their source, owner, last-checked date, and publication or delivery status.
-
-## First operating priorities
-
-The initial queue is to return the approved Purplepass agreement without changing its terms, obtain the unique referral link and activation confirmation, reconcile all outstanding partner and affiliate commitments, prepare the missing low-ticket FVTV Studios offers for site publication, and finish the Issue 005 production handoff. See the issue templates and `docs/operations/deliverable-control.md` for the required record format.
-
-## Existing payment sheet
-
-Current published rates and payment routes remain in [PAY.md](./PAY.md). Do not add a Stripe link until a live public link is confirmed. Work begins after payment posts.
-
-## License and privacy
-
-This repository contains FVTV operating material. Keep it public only while it contains no confidential or personally identifying information. Move private operational records to a private repository or the approved CRM before committing them.
-
+See `docs/operations/repo-gap-audit.md` for the implementation audit.

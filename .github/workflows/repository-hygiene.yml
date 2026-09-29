@@ -1,44 +1,37 @@
 name: Repository hygiene
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 permissions:
   contents: read
-
 jobs:
   hygiene:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Verify required control documents
         shell: bash
         run: |
           set -euo pipefail
-          for file in README.md PAY.md CONTRIBUTING.md SECURITY.md docs/operations/deliverable-control.md .github/CODEOWNERS; do
+          for file in README.md CONTRIBUTING.md SECURITY.md config/workflow-contract.json scripts/validate_workflow.py docs/operations/source-of-truth.md .github/CODEOWNERS; do
             test -f "$file" || { echo "Missing required file: $file"; exit 1; }
           done
-
       - name: Reject sensitive tracked file types
         shell: bash
         run: |
           set -euo pipefail
           forbidden='(\.env($|\.)|\.pem$|\.key$|\.p12$|\.pfx$|\.pdf$|\.docx$|\.xlsx?$|\.csv$)'
           if git ls-files | grep -Ei "$forbidden"; then
-            echo "Sensitive or private file type detected in tracked files. Store it privately and reference it instead."
+            echo "Sensitive or private file type detected."
             exit 1
           fi
-
       - name: Check for obvious credential patterns
         shell: bash
         run: |
           set -euo pipefail
           if git grep -nE '(AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,}|-----BEGIN (RSA|OPENSSH|EC|PRIVATE) KEY-----|sk-[A-Za-z0-9]{20,})' -- . ':!PAY.md'; then
-            echo "Possible credential pattern detected. Remove it before merging."
+            echo "Possible credential pattern detected."
             exit 1
           fi
